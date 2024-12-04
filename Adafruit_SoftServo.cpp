@@ -27,6 +27,7 @@ Adafruit_SoftServo::Adafruit_SoftServo(void) {
 void Adafruit_SoftServo::attach(uint8_t pin) {
   servoPin = pin;
   angle = 90;
+  max_angle = 180;
   isAttached = true;
   pinMode(servoPin, OUTPUT);
 }
@@ -49,13 +50,32 @@ boolean Adafruit_SoftServo::attached(void) { return isAttached; }
  *
  * @param a The target servo angle
  */
-void Adafruit_SoftServo::write(uint8_t a) {
+void Adafruit_SoftServo::write(uint16_t a) {
   angle = a;
 
   if (!isAttached)
     return;
-  micros = map(a, 0, 180, 1000, 2000);
+  micros = map(a, 0, max_angle, 1000, 2000 * max_angle // 180);  // 2000 was used for 180 max
 }
+
+/**
+ * @brief Set the max angle this servo can go to. Some new servos go to 360
+ *
+ * @param a The max supported servo angle (e.g. 180, 360)
+ */
+void Adafruit_SoftServo::set_max_angle(uint16_t a) {
+  max_angle = a;
+}
+
+
+/**
+ * @brief Return the currently set angle
+ *
+ */
+uint16_t get_angle(void) {
+  return angle;
+}
+
 /**
  * @brief Pulse the control pin for the amount of time determined when the angle
  * was set with `write`

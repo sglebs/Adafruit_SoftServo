@@ -18,11 +18,15 @@ public:
   void attach(uint8_t pin);
   void detach();
   boolean attached();
-  void write(uint8_t a);
+  void write(uint16_t a);
   void refresh(void);
+  uint16_t get_angle(void);
+  void set_max_angle(uint16_t a);
 
 private:
   boolean isAttached;
-  uint8_t servoPin, angle;
+  uint8_t servoPin;
+  uint16_t angle; // newer motors can go to 360
+  uint16_t max_angle; // newer motors can go to 360
   uint16_t micros;
 };
