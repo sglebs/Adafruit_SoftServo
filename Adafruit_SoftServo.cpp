@@ -55,7 +55,7 @@ void Adafruit_SoftServo::write(uint16_t a) {
 
   if (!isAttached)
     return;
-  micros = map(a, 0, max_angle, 1000, 2000 * max_angle // 180);  // 2000 was used for 180 max
+  micros = map(a, 0, max_angle, 1000, 2000 * max_angle / 180);  // 2000 was used for 180 max
 }
 
 /**
