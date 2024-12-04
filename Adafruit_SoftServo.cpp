@@ -72,7 +72,7 @@ void Adafruit_SoftServo::set_max_angle(uint16_t a) {
  * @brief Return the currently set angle
  *
  */
-uint16_t get_angle(void) {
+uint16_t Adafruit_SoftServo::get_angle(void) {
   return angle;
 }
 
